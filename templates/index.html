@@ -1,0 +1,39 @@
+{% load static %}
+
+<ul>
+    {% if request.user.is_authenticated %}
+        <li>
+            Hi, {{request.user.username}}
+        </li>
+        <li>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </li>
+    {% else %}
+        <li>
+            <a href="{% url 'login' %}">Login</a>
+        </li>
+        <li>
+            <form action="{% url 'signup' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Sign Up</button>
+            </form>
+        </li>
+    {% endif %}
+</ul>
+
+
+<div>
+    <a href="{% url 'make_post' %}">Make Post</a>
+</div>
+
+<div>
+    {% for post in object_list %}
+        <a href="{% url 'post_detail_pk' post.pk %}">
+            <img src="/{{ post.image }}" alt="{{ post.title }}">
+        </a>    
+    {% endfor %}
+</div>
+

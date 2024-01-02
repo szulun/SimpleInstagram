@@ -16,8 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib.auth.views import LogoutView
+from InstaApp.views import PostsView
+
 
 urlpatterns = [
+    path('', PostsView.as_view(), name='home'),  # 使用PostsView作为根路径视图
     path('admin/', admin.site.urls),
-    path('insta/', include('InstaApp.urls'))
+    path('insta/', include('InstaApp.urls')),
+    path('auth/', include('django.contrib.auth.urls')),
+    path('logout/', LogoutView.as_view(), name='logout'),
+   
 ]
