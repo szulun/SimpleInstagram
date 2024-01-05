@@ -16,15 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.contrib.auth.views import LogoutView
-from InstaApp.views import PostsView
+from InstaApp.views import SignUp
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('', PostsView.as_view(), name='home'),  # 使用PostsView作为根路径视图
     path('admin/', admin.site.urls),
-    path('insta/', include('InstaApp.urls')),
+    path('InstaApp/', include('InstaApp.urls')),
     path('auth/', include('django.contrib.auth.urls')),
-    path('logout/', LogoutView.as_view(), name='logout'),
-   
+    path('auth/signup', SignUp.as_view(), name='signup'),
+
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

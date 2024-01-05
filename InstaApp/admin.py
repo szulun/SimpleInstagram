@@ -1,7 +1,11 @@
 from django.contrib import admin
-from InstaApp.models import Post, PostTwo, InstaUser
+from InstaApp.models import Post, InstaUser, Like, UserConnection, Comment
 
-# Register your models here.
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'posted_on')
+#Register your models here.
 admin.site.register(Post)
-admin.site.register(PostTwo)
 admin.site.register(InstaUser)
+admin.site.register(Like)
+admin.site.register(UserConnection)
+admin.site.register(Comment)
